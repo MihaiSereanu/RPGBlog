@@ -10,7 +10,7 @@ router.get("/", async (request, response) => {
 });
 
 // New article routes
-router.get("/new", (request, response) => {
+router.get("/new", async (request, response) => {
   response.render("chronicle/new", { article: new Article() });
 });
 
@@ -22,7 +22,7 @@ router.get("/edit/:id", async (request, response) => {
 
 router.get("/:slug", async (request, response) => {
   const article = await Article.findOne({ slug: request.params.slug });
-  if (article == null) response.redirect("/");
+  if (article == null) response.redirect("../chronicle");
   response.render("chronicle/show", { article: article });
 });
 
