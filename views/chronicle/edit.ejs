@@ -1,0 +1,8 @@
+<div class="main_area">
+  <h2 class="sub_section_title">Edit Entry</h2>
+  <form action="/chronicle/<%= article.id %>?_method=PUT" , method="POST">
+    <%- include('_form_fields') %>
+    <a href="/chronicle" class="sub_button">Cancel</a>
+    <button type="submit" class="sub_button">Apply Edit</button>
+  </form>
+</div>

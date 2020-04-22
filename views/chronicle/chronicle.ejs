@@ -1,0 +1,27 @@
+<div class="top_content">
+  <h1 class="section_title centered">CHRONICLE</h1>
+  <a href="/chronicle/new" class="main_button darkened">New Chronicle</a>
+</div>
+<div class="main_area">
+  <% articles.forEach(article => { %>
+  <div class="card_area">
+    <div class="card_details">
+      <h3 class="article_title"><%= article.title %></h3>
+      <span class="text_muted"
+        ><%= article.createdAt.toLocaleDateString() %>
+      </span>
+      <div class="card_text"><%= article.description %></div>
+      <div class="button_area">
+        <a href="chronicle/<%= article.slug %>" class="sub_button">View</a>
+        <a href="chronicle/edit/<%= article.id %>" class="sub_button">Edit</a>
+        <form
+          action="/chronicle/<%= article.id %>?_method=DELETE"
+          method="POST"
+        >
+          <button type="submit" class="sub_button">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+</div>

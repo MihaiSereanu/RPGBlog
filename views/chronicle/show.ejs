@@ -1,0 +1,15 @@
+<div class="main_area">
+  <h2 class="section_title"><%= article.title %></h2>
+  <span class="text_muted">
+    <%= article.createdAt.toLocaleDateString() %>
+  </span>
+  <div class="button_area" style="margin-top: 0px;">
+    <a href="/chronicle" class="sub_button">All Articles</a>
+    <a href="/chronicle/edit/<%= article.id %>" class="sub_button">Edit</a>
+  </div>
+
+  <div class="article_text">
+    <img class="image-side" src=" <%=article.imagePath%>" />
+    <%- article.sanitizedHtml %>
+  </div>
+</div>

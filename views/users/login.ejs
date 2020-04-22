@@ -1,0 +1,33 @@
+<div class="main_area">
+  <form action="/users/login" method="POST">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        required
+        value="<%= typeof email != 'undefined' ? email : '' %>"
+        type="text"
+        name="email"
+        id="email"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        required
+        value="<%= typeof password != 'undefined' ? password : '' %>"
+        type="text"
+        name="password"
+        id="password"
+        class="form-control"
+      />
+    </div>
+    <div class="button_area" style="width: 230px;">
+      <button type="submit" class="main_button" style="padding: 0.2em;">
+        Log In
+      </button>
+      <a href="/" class="main_button" style="padding: 0.2em;">Cancel</a>
+    </div>
+  </form>
+</div>

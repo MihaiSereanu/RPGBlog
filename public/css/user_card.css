@@ -1,0 +1,133 @@
+.card {
+  width: 355px;
+  height: 300px;
+  background-color: white;
+  border-radius: 6px;
+  border: 2px solid black;
+  overflow: hidden;
+  margin: 1.5rem;
+}
+
+.card img {
+  height: 250px;
+  width: 155px;
+  margin: 10px 3px 3px 10px;
+  border: 2px solid black;
+  border-radius: 5%;
+}
+
+.card h1 {
+  text-align: center;
+  font-size: 1em;
+  margin-top: 0.5em;
+}
+
+.card .additional {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #4d0707;
+}
+
+.card .additional .user-card {
+  width: 150px;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+
+.card .additional .user-card .name,
+.card .additional .user-card .points {
+  top: 15%;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.card .additional .user-card .points {
+  top: 85%;
+}
+
+.card .additional .more-info {
+  width: 200px;
+  position: absolute;
+  left: 150px;
+  height: 100%;
+}
+
+.card .additional .more-info h1 {
+  color: #fff;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+}
+
+.card .additional .coords {
+  margin: 0 1rem;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.card .additional .coords span + span {
+  float: right;
+}
+
+.card .additional .stats {
+  font-size: 1.4rem;
+  display: flex;
+  position: absolute;
+  bottom: 0.4rem;
+  left: 1rem;
+  right: 1rem;
+  top: auto;
+  color: #fff;
+}
+
+.card .additional .description {
+  width: 170px;
+  display: block;
+  margin-left: 1.2em;
+  margin-top: 1em;
+  font-size: 0.8em;
+  text-align: center;
+  word-wrap: normal;
+}
+
+.card .additional .stats > div {
+  flex: 1;
+  text-align: center;
+}
+
+.card .additional .stats div.title,
+.card .additional .stats div.value {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 1.5em;
+}
+
+.card .general {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.card .general .more {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 0.9em;
+}
+
+.name {
+  text-align: center;
+  margin-left: 1em;
+}

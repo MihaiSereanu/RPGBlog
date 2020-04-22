@@ -1,0 +1,22 @@
+<div class="main_area">
+  <div class="showpage_grid">
+    <div class="column1">
+      <div class="side_image">
+        <img class="image-responsive" src=" <%=character.imagePath%>" />
+      </div>
+      <div class="button_area">
+        <a href="/characters" class="sub_button">All Characters</a>
+        <a href="/characters/edit/<%= character.id %>" class="sub_button"
+          >Edit</a
+        >
+      </div>
+    </div>
+
+    <div class="column2">
+      <h2 class="article_title"><%= character.name %></h2>
+      <div class="card_text">
+        <%- character.sanitizedHtml %>
+      </div>
+    </div>
+  </div>
+</div>
