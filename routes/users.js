@@ -37,7 +37,7 @@ router.post("/register", (request, response) => {
       password2,
     });
   } else {
-    response.send("Pass");
+    response.redirect("/");
   }
 });
 
