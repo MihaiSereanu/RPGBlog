@@ -21,11 +21,13 @@ const characterRouter = require("./routes/characters");
 const app = express();
 
 // DB Config
-mongoose.connect(process.env.DATABASE_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .catch((error) => handleError(error));
 
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
