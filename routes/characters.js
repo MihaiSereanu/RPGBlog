@@ -5,8 +5,13 @@ const saveImage = require("../public/javascripts/helper");
 
 // All character routes
 router.get("/", async (request, response) => {
-  const characters = await Character.find();
-  response.render("characters/characters", { characters: characters });
+  try {
+    const characters = await Character.find();
+    response.render("characters/characters", { characters: characters });
+  } catch (error) {
+    console.log(error);
+    response.redirect("/");
+  }
 });
 
 // New character routes
