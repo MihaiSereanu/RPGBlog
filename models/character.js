@@ -24,10 +24,10 @@ const characterSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  level: {
+  condition: {
     type: String,
   },
-  disposition: {
+  relationship: {
     type: String,
   },
   markdown: {

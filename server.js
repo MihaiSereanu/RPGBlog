@@ -7,11 +7,11 @@ const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-const bcrypt = require("bcrypt");
-const passport = require("passport");
-const flash = require("express-flash");
-const session = require("express-session");
-const initializePassport = require("./passport-config");
+// const bcrypt = require("bcrypt");
+// const passport = require("passport");
+// const flash = require("express-flash");
+// const session = require("express-session");
+// const initializePassport = require("./passport-config");
 
 const mainRouter = require("./routes/main.js");
 const userRouter = require("./routes/users");
@@ -20,7 +20,7 @@ const lorebookRouter = require("./routes/lorebook");
 const characterRouter = require("./routes/characters");
 const app = express();
 
-// DB Config
+// DB CONFIG //
 mongoose
   .connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,

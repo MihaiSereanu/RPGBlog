@@ -18,13 +18,10 @@ function initialize(passport, getUserByEmail, getUserById) {
       return done(error);
     }
   };
-
   passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
   passport.serializeUser((user, done) => done(null, user.id));
   passport.deserializeUser((id, done) => {
-    User.findById(id, (error, user) => {
-      done(error, user);
-    });
+    return done(null, getUserById(id));
   });
 }
 

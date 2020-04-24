@@ -41,6 +41,7 @@ router.post(
   saveCharacterAndRedirect("new")
 );
 
+// Edit character route
 router.put(
   "/:id",
   async (request, response, next) => {
@@ -62,8 +63,8 @@ function saveCharacterAndRedirect(path) {
     character.name = request.body.name;
     character.title = request.body.title;
     character.description = request.body.description;
-    character.level = request.body.level;
-    character.disposition = request.body.disposition;
+    character.condition = request.body.condition;
+    character.relationship = request.body.relationship;
     character.markdown = request.body.markdown;
     saveImage(character, request.body.image);
     try {

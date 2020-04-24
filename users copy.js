@@ -14,9 +14,14 @@ const MongoStore = require("connect-mongo")(session);
 const User = require("../models/user");
 const initializePassport = require("../passport-config");
 
-initializePassport(passport, (email) => {
-  User.findOne({ email: email });
-});
+initializePassport(
+  passport,
+  // use mongo functions here??
+  (email) => {
+    User.findOne({ email: email });
+  },
+  (id) => User.findOne({ id: id })
+);
 
 // USER CONFIG //
 router.use(flash());
