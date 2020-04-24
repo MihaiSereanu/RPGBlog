@@ -7,11 +7,9 @@ const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-// const bcrypt = require("bcrypt");
-// const passport = require("passport");
-// const flash = require("express-flash");
-// const session = require("express-session");
-// const initializePassport = require("./passport-config");
+const flash = require("express-flash");
+const session = require("express-session");
+const passport = require("passport");
 
 const mainRouter = require("./routes/main.js");
 const userRouter = require("./routes/users");
@@ -19,6 +17,9 @@ const chronicleRouter = require("./routes/chronicle");
 const lorebookRouter = require("./routes/lorebook");
 const characterRouter = require("./routes/characters");
 const app = express();
+
+// Passport Config //
+require("./config/passport")(passport);
 
 // DB CONFIG //
 mongoose
@@ -39,6 +40,18 @@ app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 app.use(methodOverride("_method"));
+
+app.use(flash());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", mainRouter);
 app.use("/users", userRouter);

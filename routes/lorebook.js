@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Lorepiece = require("../models/lorepiece");
 const saveImage = require("../public/javascripts/helper");
+const { checkAuthenticated } = require("../config/auth");
 
 // All chronicle routes
-router.get("/", async (request, response) => {
+router.get("/", checkAuthenticated, async (request, response) => {
   const lorepieces = await Lorepiece.find().sort({ createdAt: "desc" });
   response.render("lorebook/lorebook", { lorepieces: lorepieces });
 });

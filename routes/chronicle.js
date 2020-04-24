@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
 const saveImage = require("../public/javascripts/helper");
+const { checkAuthenticated } = require("../config/auth");
 
 // All chronicle routes
-router.get("/", async (request, response) => {
+router.get("/", checkAuthenticated, async (request, response) => {
   const articles = await Article.find().sort({ createdAt: "desc" });
   response.render("chronicle/chronicle", { articles: articles });
 });

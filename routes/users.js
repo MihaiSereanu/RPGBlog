@@ -4,81 +4,99 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const router = express.Router();
-
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const flash = require("express-flash");
-const session = require("express-session");
-// const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo")(session);
 const User = require("../models/user");
-const initializePassport = require("../passport-config");
-
-initializePassport(passport, (email) => {
-  User.findOne({ email: email });
-});
-
-// USER CONFIG //
-router.use(flash());
-router.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({ url: "mongodb://localhost/rpgblog" }),
-    // store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  })
-);
-
-router.use(passport.initialize());
-router.use(passport.session());
+const { checkAuthenticated, checkNotAuthenticated } = require("../config/auth");
 
 // Login Page
-router.get("/login", (request, response) => {
+router.get("/login", checkNotAuthenticated, (request, response) => {
   response.render("users/login");
 });
 
-router.post(
-  "/login",
+// Login Handle
+router.post("/login", checkNotAuthenticated, (request, response, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/users/login",
     failureFlash: true,
-  })
-);
+  })(request, response, next);
+});
 
 // Register Page
-router.get("/register", (request, response) => {
+router.get("/register", checkNotAuthenticated, (request, response) => {
   response.render("users/register");
 });
 
 // Register Handle
-router.post(
-  "/register",
-  async (request, response, next) => {
-    request.user = new User();
-    next();
-  },
-  saveUserAndRedirect("login")
-);
+router.post("/register", checkNotAuthenticated, (request, response) => {
+  const { username, email, password, password2 } = request.body;
+  let errors = [];
 
-function saveUserAndRedirect(path) {
-  return async (request, response) => {
-    const hashedPassword = await bcrypt.hash(request.body.password, 10);
-    let user = request.user;
-    user.username = request.body.username;
-    user.email = request.body.email;
-    user.password = hashedPassword;
-    user.date = request.body.date;
-    try {
-      newUser = await user.save();
-      response.render(`users/${path}`);
-    } catch (error) {
-      console.log(error);
-      response.redirect(`users/register`, { user: user });
-    }
-    console.log(user);
-  };
-}
+  if (!username || !email || !password) {
+    errors.push({ msg: "Please enter all fields" });
+  }
+
+  // if (password != password2) {
+  //   errors.push({ msg: "Passwords do not match" });
+  // }
+
+  if (password.length < 6) {
+    errors.push({ msg: "Password must be at least 6 characters" });
+  }
+
+  if (errors.length > 0) {
+    response.render("users/register", {
+      errors,
+      username,
+      email,
+      password,
+      // password2,
+    });
+  } else {
+    User.findOne({ email: email }).then((user) => {
+      if (user) {
+        errors.push({ msg: "Email already exists" });
+        response.render("users/register", {
+          errors,
+          username,
+          email,
+          password,
+          // password2,
+        });
+      } else {
+        const newUser = new User({
+          username,
+          email,
+          password,
+        });
+
+        bcrypt.genSalt(10, (error, salt) => {
+          bcrypt.hash(newUser.password, salt, (error, hash) => {
+            if (error) throw error;
+            newUser.password = hash;
+            newUser
+              .save()
+              .then((user) => {
+                request.flash(
+                  "success_msg",
+                  "You are now registered and can log in"
+                );
+                res.redirect("/users/login");
+              })
+              .catch((error) => console.log(error));
+          });
+        });
+      }
+    });
+  }
+});
+
+// Logout
+router.get("/logout", (request, response) => {
+  request.logout();
+  request.flash("success_msg", "You are logged out");
+  response.redirect("/");
+});
 
 module.exports = router;

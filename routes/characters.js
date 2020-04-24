@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Character = require("../models/character");
 const saveImage = require("../public/javascripts/helper");
+const { checkAuthenticated } = require("../config/auth");
 
 // All character routes
-router.get("/", async (request, response) => {
+router.get("/", checkAuthenticated, async (request, response) => {
   try {
     const characters = await Character.find();
     response.render("characters/characters", { characters: characters });
