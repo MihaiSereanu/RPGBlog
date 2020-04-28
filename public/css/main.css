@@ -318,4 +318,29 @@ header {
     margin: 0 auto;
     margin-bottom: 15px;
   }
+  .main_button {
+    font-size: 1em;
+  }
+  .section_title {
+    font-size: 1.4em;
+  }
+  .sub_section_title {
+    font-size: 1.1em;
+  }
+}
+
+
+@media screen and (max-width: 440px) {
+  .nav-links {
+    font-size: 0.6em;
+  }
+  .main_button {
+    font-size: 0.8em;
+  }
+  .section_title {
+    font-size: 1.3em;
+  }
+  .sub_section_title{
+    font-size: 1em;
+  }
 }

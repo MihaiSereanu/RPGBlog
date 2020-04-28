@@ -9,6 +9,26 @@ const passport = require("passport");
 const User = require("../models/user");
 const { checkAuthenticated, checkNotAuthenticated } = require("../config/auth");
 
+function requireAdmin() {
+  return function (request, response, next) {
+    User.findOne({ email: email }, function (error, user) {
+      if (error) {
+        return next(error);
+      }
+
+      if (user.isAdmin) {
+        // Do something - the user exists and is an admin
+      }
+
+      if (!user.isAdmin) {
+        // Do something - the user exists but is no admin user
+      }
+
+      // Hand over control to passport
+      next();
+    });
+  };
+}
 // Login Page
 router.get("/login", checkNotAuthenticated, (request, response) => {
   response.render("users/login");
@@ -82,7 +102,7 @@ router.post("/register", checkNotAuthenticated, (request, response) => {
                   "success_msg",
                   "You are now registered and can log in"
                 );
-                res.redirect("/users/login");
+                response.redirect("/users/login");
               })
               .catch((error) => console.log(error));
           });

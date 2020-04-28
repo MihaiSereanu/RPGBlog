@@ -11,7 +11,6 @@ const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
 
-const mainRouter = require("./routes/main.js");
 const userRouter = require("./routes/users");
 const chronicleRouter = require("./routes/chronicle");
 const lorebookRouter = require("./routes/lorebook");
@@ -53,7 +52,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", mainRouter);
+// Passing this to every route to dynamically check for user state
+app.use(function (request, response, next) {
+  response.locals.isAuthenticated = request.isAuthenticated();
+  next();
+});
+
+app.get("/", async (request, response) => {
+  response.render("main.ejs");
+});
+
 app.use("/users", userRouter);
 app.use("/chronicle", chronicleRouter);
 app.use("/lorebook", lorebookRouter);

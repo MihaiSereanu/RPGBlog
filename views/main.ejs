@@ -1,24 +1,17 @@
 <div class="landing">
   <h1 class="section_title">Curse of the Crimson Throne</h1>
   <h3 class="sub_section_title">- Converted for Pathfinder 2E -</h3>
-
   <div class="button_area" style="display: block;">
-    <a
-      href="users/login"
-      class="main_button"
-      id="login_btn"
-      style="padding: 0.3em; font-size: 1.5em; margin-right: 0.2em;"
-    >
+    <% if (!isAuthenticated) { %>
+    <a href="users/login" class="main_button" style="margin-right: 0.2em;">
       Log In
     </a>
 
-    <a
-      href="users/register"
-      class="main_button"
-      id="register_btn"
-      style="padding: 0.3em; font-size: 1.5em;"
-    >
+    <a href="users/register" class="main_button">
       Register
     </a>
+    <% } %> <% if (isAuthenticated) { %>
+    <a href="users/logout" class="main_button">Log Out</a>
+    <% } %>
   </div>
 </div>
