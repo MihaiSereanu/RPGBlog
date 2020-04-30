@@ -1,6 +1,9 @@
 <div class="top_content">
   <h1 class="section_title centered">CHRONICLE</h1>
   <a href="/chronicle/new" class="main_button darkened">New Chronicle</a>
+  <div class="button_area">
+    <%- include('../partials/userError.ejs') %>
+  </div>
 </div>
 <div class="main_area">
   <% articles.forEach(article => { %>

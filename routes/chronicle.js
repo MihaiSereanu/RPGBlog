@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
 const saveImage = require("../public/javascripts/helper");
-const { checkAuthenticated } = require("../config/auth");
+const { checkAuthenticated, requireAdmin } = require("../config/auth");
 
 // All chronicle routes
 router.get("/", checkAuthenticated, async (request, response) => {
@@ -11,12 +11,12 @@ router.get("/", checkAuthenticated, async (request, response) => {
 });
 
 // New article routes
-router.get("/new", async (request, response) => {
+router.get("/new", requireAdmin, async (request, response) => {
   response.render("chronicle/new", { article: new Article() });
 });
 
 // Create edit route
-router.get("/edit/:id", async (request, response) => {
+router.get("/edit/:id", requireAdmin, async (request, response) => {
   const article = await Article.findById(request.params.id);
   response.render("chronicle/edit", { article: article });
 });
@@ -47,7 +47,7 @@ router.put(
 );
 
 // Delete article
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", requireAdmin, async (request, response) => {
   await Article.findByIdAndDelete(request.params.id);
   response.redirect("/chronicle");
 });

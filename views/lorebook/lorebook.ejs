@@ -1,6 +1,9 @@
 <div class="top_content">
   <h1 class="section_title centered">LOREBOOK</h1>
   <a href="/lorebook/new" class="main_button darkened">New Lorebook</a>
+  <div class="button_area">
+    <%- include('../partials/userError.ejs') %>
+  </div>
 </div>
 <div class="main_area">
   <% lorepieces.forEach(lorepiece => { %>

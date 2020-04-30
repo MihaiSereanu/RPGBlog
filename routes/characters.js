@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Character = require("../models/character");
 const saveImage = require("../public/javascripts/helper");
-const { checkAuthenticated } = require("../config/auth");
+const { checkAuthenticated, requireAdmin } = require("../config/auth");
 
 // All character routes
 router.get("/", checkAuthenticated, async (request, response) => {
@@ -16,12 +16,12 @@ router.get("/", checkAuthenticated, async (request, response) => {
 });
 
 // New character routes
-router.get("/new", (request, response) => {
+router.get("/new", requireAdmin, (request, response) => {
   response.render("characters/new", { character: new Character() });
 });
 
 // Create edit route
-router.get("/edit/:id", async (request, response) => {
+router.get("/edit/:id", requireAdmin, async (request, response) => {
   const character = await Character.findById(request.params.id);
   response.render("characters/edit", { character: character });
 });
@@ -53,7 +53,7 @@ router.put(
 );
 
 // Delete character
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", requireAdmin, async (request, response) => {
   await Character.findByIdAndDelete(request.params.id);
   response.redirect("/characters");
 });

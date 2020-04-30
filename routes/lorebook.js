@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Lorepiece = require("../models/lorepiece");
 const saveImage = require("../public/javascripts/helper");
-const { checkAuthenticated } = require("../config/auth");
+const { checkAuthenticated, requireAdmin } = require("../config/auth");
 
 // All chronicle routes
 router.get("/", checkAuthenticated, async (request, response) => {
@@ -11,12 +11,12 @@ router.get("/", checkAuthenticated, async (request, response) => {
 });
 
 // New lorepiece routes
-router.get("/new", (request, response) => {
+router.get("/new", requireAdmin, (request, response) => {
   response.render("lorebook/new", { lorepiece: new Lorepiece() });
 });
 
 // Create edit route
-router.get("/edit/:id", async (request, response) => {
+router.get("/edit/:id", requireAdmin, async (request, response) => {
   const lorepiece = await Lorepiece.findById(request.params.id);
   response.render("lorebook/edit", { lorepiece: lorepiece });
 });
@@ -47,7 +47,7 @@ router.put(
 );
 
 // Delete lorepiece
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", requireAdmin, async (request, response) => {
   await Lorepiece.findByIdAndDelete(request.params.id);
   response.redirect("/lorebook");
 });
