@@ -253,8 +253,9 @@ header {
   width: 70%;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
-  text-align: center;
+  text-align: justify;
 }
+
 
 .article_text h1,
 .article_text h2 {
@@ -267,6 +268,13 @@ header {
   border-radius: 5%;
   float: left;
   margin: 3px 10px 5px 0px;
+}
+
+.character {
+  width: 250px;
+  border: 2px solid black;
+  border-radius: 5px;
+  height: auto;
 }
 
 @media screen and (max-width: 1200px) {
@@ -302,6 +310,11 @@ header {
   .image-side {
     height: 250px;
     width: 250px;
+  }
+  
+  .character {
+    width: 200px;
+    height: auto;
   }
   
   .card_text,
