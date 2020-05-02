@@ -6,7 +6,7 @@ const { checkAuthenticated, requireAdmin } = require("../config/auth");
 
 // All chronicle routes
 router.get("/", checkAuthenticated, async (request, response) => {
-  const articles = await Article.find().sort({ createdAt: "ascending" });
+  const articles = await Article.find().sort({ createdAt: "descending" });
   response.render("chronicle/chronicle", { articles: articles });
 });
 
