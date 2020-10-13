@@ -13,7 +13,6 @@ const passport = require("passport");
 
 const userRouter = require("./routes/users");
 const chronicleRouter = require("./routes/chronicle");
-const lorebookRouter = require("./routes/lorebook");
 const characterRouter = require("./routes/characters");
 const app = express();
 
@@ -72,7 +71,6 @@ app.get("/", async (request, response) => {
 
 app.use("/users", userRouter);
 app.use("/chronicle", chronicleRouter);
-app.use("/lorebook", lorebookRouter);
 app.use("/characters", characterRouter);
 app.use(express.static(__dirname + "/public"));
 
